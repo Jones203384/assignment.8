@@ -1,0 +1,24 @@
+A hash table is a strong choice when an application frequently looks up values
+using a known key. A hash function converts a contact name into an array index,
+so the table can go directly to the likely location instead of examining every
+contact. With a good distribution and a manageable load factor, lookup and
+insertion are O(1) on average. In the worst case, many keys can land at one
+index, making an operation proportional to the length of that index's chain.
+
+This implementation handles collisions with separate chaining. Each array
+position contains either None or the first Node in a linked list. When a new
+name hashes to an occupied position, insert traverses the list and appends a
+Node. Before appending, it checks for the same key; if found, it replaces the
+stored number instead of creating a duplicate. Search follows the same chain
+and returns the matching Contact, or None when the name is absent.
+
+An engineer might choose a hash table over a list when quick key-based
+retrieval matters more than keeping items in order. A list is simpler and can
+be appropriate for small collections or sequential processing, but searching
+it generally takes O(n) time. A tree is preferable when keys need to remain
+sorted, when ordered traversal or range queries are important, or when
+predictable logarithmic operations are desirable. Hash tables do not preserve
+sorted order and their performance depends on the hash function and collision
+distribution. For a contact directory primarily queried by exact name, a hash
+table offers a practical balance of straightforward storage and fast average
+lookups.
